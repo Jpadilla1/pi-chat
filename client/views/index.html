@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/ripples.min.css" rel="stylesheet">
+    <link href="../css/material-wfont.min.css" rel="stylesheet">
+    <link href="../css/snackbar.min.css" rel="stylesheet">
+    <link href="../css/emojione.min.css" rel="stylesheet">
+    <link href="../css/sidebar.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <div class="account-wall">
+                        <img class="profile-img" src="../img/pichat.png" alt="">
+                        <br>
+                        <form action="#" class="form-signin">
+                            <input type="text" class="form-control" placeholder="Username" id="username" autofocus>
+                            <br>
+                            <input type="password" class="form-control" placeholder="Password" id="password">
+                            <br>
+                            <div class="text-center">
+                                <button class="btn btn-lg btn-material-lightgreen" id="login-button" type="submit">
+                                    Sign in</button>
+                                <button class="btn btn-lg btn-material-red" id="signup-button" type="submit">
+                                    Sign up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="chat">
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <img src="../img/pichat-white.png" id="sidebar-img" alt="">
+                    </li>
+                    <br>
+                    <!-- <li>
+                        <a href="#" class="sidebar-section">Online Users</a>
+                        <ul class="sidebar-section">
+                            <li>
+                                <a href="#">Test</a>
+                            </li>
+                            <li>
+                                <a href="#">jpadilla</a>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <li>
+                        <!-- <br> -->
+                        <a href="#" class="sidebar-section">Actions</a>
+                        <ul class="sidebar-section">
+                            <li>
+                                <a href="#" id="logout-button">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <nav class="navbar navbar-pi" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <div class="navbar-brand">
+                                <a href="#menu-toggle" id="menu-toggle">
+                                    <p class="icon-bar"></p>
+                                    <p class="icon-bar"></p>
+                                    <p class="icon-bar"></p>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+
+                <div class="container-chat">
+                    <div class="chat-box" id="chat-box">
+
+                    </div>
+
+                    <div class="enter-message">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-10 col-xs-9 col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Enter your message.." id="send-text" />
+                                </div>
+                                <div class="col-md-2 col-xs-1 col-sm-2">
+                                    <button class="btn btn-material-lightgreen" id="send-button">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/ripples.min.js"></script>
+        <script src="../js/material.min.js"></script>
+        <script src="../js/snackbar.min.js"></script>
+        <script src="../js/emojione.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            $.material.init();
+            $('#chat').hide();
+            $('#send-text').on('keypress', function(e) {
+                if (e.which == 13) {
+                    $('#send-button').click();
+                }
+            });
+        });
+
+        // default is ignore ASCII smileys like :) but you can easily turn them on
+        emojione.ascii = true;
+
+        // if you want to host the images somewhere else
+        // you can easily change the default paths
+        emojione.imagePathPNG = '../img/';
+
+        var messageCount = 0;
+
+        function showChat() {
+            $('#login').hide();
+            $('#chat').show();
+        }
+
+        function showLogin() {
+            $('#chat').hide();
+            $('#login').show();
+        }
+
+        function clearText() {
+            $('#send-text').val('');
+        }
+
+        function addMessage(user, message, side) {
+            var convertedMessage = emojione.shortnameToImage(message);
+            var idx = convertedMessage.indexOf('?');
+            var parsedMessage = convertedMessage;
+            if (idx > 0) {
+                parsedMessage = convertedMessage.replace("?v=1.2.4", "");
+            }
+            $('.chat-box').append("<div class='message-box " + side + "-img pull-" + side + "' id='" + messageCount++ + "'><div class='message'><span>" + user + "</span><p>" + parsedMessage + "</p></div></div>");
+        }
+
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        </script>
+
+</body>
+
+</html>
