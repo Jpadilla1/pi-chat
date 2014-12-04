@@ -48,6 +48,7 @@ public class ChatServer {
                         socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
+                System.out.println("new connection received...");
                 boolean created = false;
                 while (true) {
                     out.println("LOGINUSERPASSWORD/SIGNUPUSERPASSWORD");
@@ -77,6 +78,7 @@ public class ChatServer {
 
                     synchronized (users) {
                         if (user.exists() && !users.contains(user) && user.signIn() && !type.equalsIgnoreCase("S")) {
+                            System.out.println("Welcome to pichat " + user + "!");
                             users.add(user);
                             break;
                         } else {
@@ -97,6 +99,7 @@ public class ChatServer {
                     if (input == null) {
                         return;
                     }
+                    System.out.println(user + " sent a message!");
                     for (PrintWriter writer : writers) {
                         if (writer != out) {
                             writer.println("MESSAGE " + user.getUsername() + ":" + input);

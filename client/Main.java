@@ -56,7 +56,7 @@ class Chat extends Region {
     String password;
     boolean authenticated = false;
 
-    String serverAddress = "127.0.0.1";
+    String serverAddress = "192.168.10.1";
     Socket socket;
 
     int messageCount = 0;
@@ -240,7 +240,7 @@ class Chat extends Region {
                         authenticated = true;
                         loadChatUI();
                     } else if (line.startsWith("USERCREATED")) {
-                        webEngine.executeScript("$.snackbar({content: \"User created succesfully!\", style: \"success\"});");
+//                        webEngine.executeScript("$.snackbar({content: \"User created succesfully!\", style: \"success\"});");
                         loadChatUI();
                     } else if (line.startsWith("USERREJECTED/USERTAKEN")) {
                         webEngine.executeScript("$.snackbar({content: \"Username is already taken!\", style: \"error\"});");

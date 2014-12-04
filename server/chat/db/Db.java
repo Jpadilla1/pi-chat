@@ -84,7 +84,6 @@ public class Db {
             i++;
         }
         sql += ";";
-        System.out.println(sql);
         getConnection();
         try {
             objects = DbUtils.rsToArrayOfObjects(conn.createStatement().executeQuery(sql), model);
@@ -150,7 +149,6 @@ public class Db {
                 sql += "'" + fields[i].get(object) + "', ";
             }
             sql += "'" + fields[fields.length - 1].get(object) + "');";
-            System.out.println(sql);
             getConnection();
             conn.createStatement().executeUpdate(sql);
             closeConnection();
